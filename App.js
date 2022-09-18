@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Platform, Button } from 'react-native';
 import { Barometer } from 'expo-sensors';
 import Netio from './components/netio';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+function SecondPage() {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -54,6 +56,29 @@ export default function App() {
     </View>
   );
 }
+
+function Home({ navigation }) {
+  return (
+    <View>
+      <Text>哈哈哈</Text>
+      <Button onPress={() => navigation.navigate('Details')} title="下一页"/>
+    </View>
+  )
+}
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={SecondPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

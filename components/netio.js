@@ -10,12 +10,16 @@ class Netio extends React.Component {
     }
 
     async componentDidMount() {
-        const result = await fetch('http://127.0.0.1:3000')
+        const result = await fetch('http://10.3.0.191:3000')
+        console.log(result)
+        const b = await result.json()
+        console.log(b)
+        this.setState({msg: b.data.msg})
     }
 
     render() {
         return (
-            <Text>这是子组件</Text>
+            <Text>这是子组件{this.state.msg}</Text>
         )
     }
 }
